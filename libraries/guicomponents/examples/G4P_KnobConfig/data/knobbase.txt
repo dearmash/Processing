@@ -1,0 +1,16 @@
+// Place this outside the setup function
+{0} {1};
+  // Place these lines inside setup
+  // Parameters (x-pos, y-pos, size, start-ang, end-ang)
+  {0} = new GKnob(this, {1}, {2}, {3}, {4}, {5});
+  // Parameters (x-pos, y-pos, width, height, start-ang, end-ang)
+  {0} = new GKnobOval(this, {1}, {2}, {3}, {4}, {5}, {6});
+  {0}.setLimits({1}, {2}, {3});
+  {0}.setSensitivity({1});
+  {0}.setInertia({1});
+  {0}.setNbrTickMarks({1});
+  {0}.setControlMode(GKnob.{1});
+  {0}.setBezelWidth({1});
+  {0}.setValueTrackVisible({1});
+  {0}.setStrictOver({1});
+  {0}.setRotArcOnly({1});
