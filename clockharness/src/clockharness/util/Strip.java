@@ -67,6 +67,48 @@ public class Strip {
         buffer[i] = color;
     }
 
+    private static float easeAmount = 0.15f;
+
+    private static int easeThreshold = 1;
+
+    public boolean easePixelColor(int i, int colorTarget) {
+        int r0 = (int) p.red(buffer[i]);
+        int g0 = (int) p.green(buffer[i]);
+        int b0 = (int) p.blue(buffer[i]);
+
+        int r1 = (int) p.red(colorTarget);
+        int g1 = (int) p.green(colorTarget);
+        int b1 = (int) p.blue(colorTarget);
+
+        int dr = r1 - r0;
+        int dg = g1 - g0;
+        int db = b1 - b0;
+
+        r0 = easeImp(r0, r1, dr);
+        g0 = easeImp(g0, g1, dg);
+        b0 = easeImp(b0, b1, db);
+
+        int c;
+        c = (r0);
+        c <<= 8;
+        c |= (g0);
+        c <<= 8;
+        c |= (b0);
+
+        buffer[i] = c;
+
+        return r0 == r1 && g0 == g1 && b0 == b1;
+    }
+
+    private int easeImp(int v0, int v1, int dv) {
+        int move = (int) (dv * easeAmount);
+        if (p.abs(move) < easeThreshold) {
+            return v1;
+        } else {
+            return v0 + move;
+        }
+    }
+
     public void show() {
         display = Arrays.copyOf(buffer, ledcount);
     }
@@ -81,23 +123,21 @@ public class Strip {
         p.textSize(48);
         p.textAlign(PApplet.CENTER);
 
-        for(int i=0; i<gridHeight; i++) {
-            for(int j=0; j<gridWidth; j++) {
-                p.text(wordgrid[i].charAt(j),
-                        PApplet.map(j, -1, gridWidth, 0, p.width)+2,
-                        PApplet.map(i, -1, gridHeight, 0, p.height)+14);
+        for (int i = 0; i < gridHeight; i++) {
+            for (int j = 0; j < gridWidth; j++) {
+                p.text(wordgrid[i].charAt(j), PApplet.map(j, -1, gridWidth, 0, p.width) + 2,
+                        PApplet.map(i, -1, gridHeight, 0, p.height) + 14);
             }
         }
 
-        for(int i=0; i<gridHeight; i++) {
-            for(int j=0; j<gridWidth; j++) {
+        for (int i = 0; i < gridHeight; i++) {
+            for (int j = 0; j < gridWidth; j++) {
                 int c = display[mapping[i][j]];
                 p.fill(p.red(c), p.green(c), p.blue(c));
-                p.text(wordgrid[i].charAt(j),
-                        PApplet.map(j, -1, gridWidth, 0, p.width),
-                        PApplet.map(i, -1, gridHeight, 0, p.height)+12);
+                p.text(wordgrid[i].charAt(j), PApplet.map(j, -1, gridWidth, 0, p.width),
+                        PApplet.map(i, -1, gridHeight, 0, p.height) + 12);
             }
         }
-}
+    }
 
 }
