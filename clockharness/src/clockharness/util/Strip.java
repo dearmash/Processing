@@ -1,3 +1,4 @@
+
 package clockharness.util;
 
 import java.util.Arrays;
@@ -26,7 +27,7 @@ public class Strip {
         p.colorMode(PApplet.RGB, 255, 255, 255);
     }
 
-    // @formatter:on
+    // @formatter:off
     public static final int[][] mapping = {
             {0, 19, 20, 39, 40, 59, 60, 79, 80, 99, 100, 119, 120, 139, 140, 159, },
             {1, 18, 21, 38, 41, 58, 61, 78, 81, 98, 101, 118, 121, 138, 141, 158, },

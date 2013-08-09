@@ -1,6 +1,7 @@
 
 package clockharness;
 
+import static clockharness.WordLib.*;
 import clockharness.util.Strip;
 import processing.core.PApplet;
 
@@ -60,36 +61,19 @@ public class ClockWordShowcase extends PApplet {
             // }
 
             Random r = new Random();
-            for (int i = 0; i < ClockTakeOne.words.length; i++) {
-                int s = (int) map(i, 0, ClockTakeOne.words.length, 0, 255);
+            for (int i = 0; i < words.length; i++) {
+                int s = (int) map(i, 0, words.length, 0, 255);
                 s = r.nextInt(255);
-                showWord(i, PlasmaSketch.getRGB(s, 255 - s / 2, 255));
+                showWord(strip, i, PlasmaSketch.getRGB(s, 255 - s / 2, 255));
             }
 
-            currentWord = (currentWord + 1) % ClockTakeOne.words.length;
+            currentWord = (currentWord + 1) % words.length;
 
             strip.show();
         }
 
         // End of draw();
         strip.draw();
-    }
-
-    public void showSentence(int[] wordList) {
-        for (int i = 0; i < wordList.length; i++) {
-            showWord(wordList[i]);
-        }
-    }
-
-    public void showWord(int wordIdx) {
-        showWord(wordIdx, 0xffffff);
-    }
-
-    public void showWord(int wordIdx, int color) {
-        int[] word = ClockTakeOne.words[wordIdx];
-        for (int i = 0; i < word.length; i++) {
-            strip.setPixelColor(word[i], color);
-        }
     }
 
 }
